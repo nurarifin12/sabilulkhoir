@@ -36,7 +36,7 @@
 
     <!-- tailwinds -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <script>
         tailwind.config = {
             theme: {
@@ -148,7 +148,8 @@
             </p>
             <h4 class="pl-12 font-bold text-black text-2xl mb-2 mt-3">Misi</h4>
             <ol class="pl-8 list-group list-group-numbered">
-                <li class="pl-8">Memperkuat ukhuwah dan gotong royong di antara warga untuk menciptakan lingkungan yang
+                <li class="pl-8 text-lowercase">Memperkuat ukhuwah dan gotong royong di antara warga untuk menciptakan
+                    lingkungan yang
                     harmonis dan sejahtera.
                 </li>
                 <li class="pl-8">
@@ -406,7 +407,7 @@
         </div>
     </section>
 
-    <footer class="pt-32 pb-32">
+    <footer class="pt-8 pb-8">
         <a href="https://www.instagram.com/rfin.cr7/" target="_blank">
             <p class="font-bold text-center">created by @BANGFIN</p>
         </a>

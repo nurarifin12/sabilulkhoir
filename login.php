@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>LOGIN FORM</title>
     <!-- icon web -->
     <link rel="icon" href="./img/logo.jpg" type="image/jpg">
-    <link rel="stylesheet" href="./login.css">
+    <link rel="stylesheet" href="./css/login.css">
 </head>
 
 <body>

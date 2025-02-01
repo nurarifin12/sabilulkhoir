@@ -14,7 +14,7 @@ Deskripsi singkat tentang project ini.
 
 1. Clone repository:
    ```bash
-   git clone https://github.com/username/repo-name.git
+   git clone https://github.com/nurarifin12/sabilulkhoir.git
    ```
 
 ## Teknologi yang digunakan
