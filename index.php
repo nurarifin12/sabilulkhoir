@@ -1,4 +1,11 @@
-<!doctype html>
+<?php
+include('db_conn.php');
+
+$query = "SELECT * FROM beranda";
+$result = $conn->query($query);
+?>
+
+<!Doctype html>
 <html lang="en">
 
 <head>
@@ -12,6 +19,9 @@
     <link rel="icon" href="./img/logo.jpg" type="image/jpg">
 
     <!-- font -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,13 +58,31 @@
             },
         };
     </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            animation: fadeIn 1s ease-in;
+            background-color: #f9f9f9;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <nav class="fixed left-0 rigth-0 py-2 w-full z-10 shadow-lg">
         <h2 class="font-bold tex-xl text-black">SABILUL<span class="text-red-600">KHOIR</span></h2>
         <ul class="inline pt-2">
-            <li><a href="#Home" class="menu text-black">Beranda</a></li>
+            <li><a href="#Beranda" class="menu text-black">Beranda</a></li>
             <li><a href="#About" class="menu text-black">Tentang Kami</a></li>
             <li><a href="#Kegiatan" class="menu text-black">Kegiatan</a></li>
             <li><a href="#Galeri-Media" class="menu text-black">Galeri</a></li>
@@ -82,7 +110,7 @@
         </div>
     </nav>
 
-    <section id="Home" class="mt-31" style="height: 100vh;">
+    <section id="Beranda" class="mt-31" style="height: 100vh;">
         <!-- Mengatur tinggi section -->
         <div class="container-fluid p-0">
             <!-- Menggunakan container-fluid dan menghapus padding -->
@@ -98,31 +126,21 @@
                 </div>
                 <div class="carousel-inner" style="height: 100vh;">
                     <!-- Mengatur tinggi carousel-inner -->
-                    <div class="carousel-item active" style="height: 100vh;">
-                        <!-- Mengatur tinggi item -->
-                        <img src="profil.jpg" class="d-block w-100 h-100" alt="..." style="object-fit: cover;">
-                        <!-- Mengatur gambar agar memenuhi area -->
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>SHOLAWAT AKBAR HARLAH SABILUL KHOIR</h5>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, asperiores! Ipsa, vel
-                                amet! Accusamus inventore asperiores labore adipisci. Sint, voluptate!</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item" style="height: 100vh;">
-                        <img src="profil.jpg" class="d-block w-100 h-100" alt="..." style="object-fit: cover;">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>SHOLAWAT AKBAR HARLAH SABILUL KHOIR</h5>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Culpa reprehenderit quo
-                                corrupti, quibusdam natus blanditiis perspiciatis amet nam debitis eos quis ea mollitia.
-                                Vel minus nostrum dignissimos?</p>
-                        </div>
-                    </div>
-                    <div class="carousel-item" style="height: 100vh;">
-                        <img src="profil.jpg" class="d-block w-100 h-100" alt="..." style="object-fit: cover;">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>SHOLAWAT AKBAR HARLAH SABILUL KHOIR</h5>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum, exercitationem!</p>
-                        </div>
+                    <div class="carousel-inner" style="height: 100vh;">
+                        <?php
+                        $active = "active";
+                        while ($row = $result->fetch_assoc()) { ?>
+                            <div class="carousel-item <?= $active ?>" style="height: 100vh;">
+                                <img src="img/<?= $row['gambar'] ?>" class="d-block w-100 h-100" alt="<?= $row['judul'] ?>"
+                                    style="object-fit: cover;">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5 class="text-3xl font-weight-bold"><?= $row['judul'] ?></h5>
+                                    <p><?= $row['deskripsi'] ?></p>
+                                </div>
+                            </div>
+                        <?php
+                            $active = ""; // Hilangkan "active" setelah item pertama
+                        } ?>
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
@@ -346,6 +364,102 @@
                         </div>
                     </div>
                 </div>
+                <div class="col">
+                    <div class="card3">
+                        <div class="card-details">
+                            <img src="./img/ngaji2.jpeg" alt="">
+                        </div>
+                        <button class="card-button" data-bs-toggle="modal"
+                            data-bs-target="#ngajiModal">Selengkapnya</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="ngajiModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Ngaji Rutinan</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="./img/ngaji2.jpeg" alt="">
+                                        <p>Ngaji rutinan Lorem ipsum dolor sit amet consectetur adipisicing elit. In
+                                            commodi saepe autem eligendi ea praesentium modi facere rerum debitis eum.
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close
+                                            Window</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card3">
+                        <div class="card-details">
+                            <img src="./img/ngaji2.jpeg" alt="">
+                        </div>
+                        <button class="card-button" data-bs-toggle="modal"
+                            data-bs-target="#ngajiModal">Selengkapnya</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="ngajiModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Ngaji Rutinan</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="./img/ngaji2.jpeg" alt="">
+                                        <p>Ngaji rutinan Lorem ipsum dolor sit amet consectetur adipisicing elit. In
+                                            commodi saepe autem eligendi ea praesentium modi facere rerum debitis eum.
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close
+                                            Window</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card3">
+                        <div class="card-details">
+                            <img src="./img/ngaji2.jpeg" alt="">
+                        </div>
+                        <button class="card-button" data-bs-toggle="modal"
+                            data-bs-target="#ngajiModal">Selengkapnya</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="ngajiModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Ngaji Rutinan</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="./img/ngaji2.jpeg" alt="">
+                                        <p>Ngaji rutinan Lorem ipsum dolor sit amet consectetur adipisicing elit. In
+                                            commodi saepe autem eligendi ea praesentium modi facere rerum debitis eum.
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close
+                                            Window</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -356,16 +470,11 @@
             <h3 class="text-4xl font-bold text-center mb-5">Kontak</h3>
             <div class="flex flex-wrap">
                 <div class="px-4 lg:w-1/2">
-                    <img src="./img/logo.jpg" class="img-fluid rounded pl-12" width="300px" height="300px" alt="rifin">
+                    <img src="./img/logo.jpg" class="img-fluid rounded pl-12 mix-blend-multiply" width="300px"
+                        height="300px" alt="rifin">
                 </div>
                 <div class="w-full pl-10 right-0 lg:w-1/2">
-                    <h3 class="font-bold text-red text-3xl mb-6">Get In Touch</h3>
-                    <div class="d-flex text-danger mb-4">
-                        <div>
-                            <h4 class="pl-4 mb-3 font-bold text-slate-600 text-2xl">Dibentuk pada</h4>
-                            <address class="pl-4 mb-0 text-secondary">Tahun 2018</address>
-                        </div>
-                    </div>
+                    <h3 class="font-bold text-red text-3xl mb-6 mt-6">Get In Touch</h3>
                     <div class="d-flex text-danger mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="currentColor"
                             class="bi bi-geo" viewBox="0 0 16 16">
@@ -385,7 +494,8 @@
                         </svg>
                         <div>
                             <h4 class="pl-4 mb-3 font-bold text-slate-600 text-2xl">Instagram</h4>
-                            <address class="pl-4 mb-0 text-secondary">+62823 2453 3422</address>
+                            <a class="text-slate-600"
+                                href="https://www.instagram.com/sabilulkhoir_mertelu?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">sabilulkhoir_mertelu</a>
                         </div>
                     </div>
                     <div class="d-flex text-danger mb-4">
@@ -401,16 +511,46 @@
                             <address class="pl-4 mb-0 text-secondary">sabilulkhoir@gmail.com</address>
                         </div>
                     </div>
-
+                    <a href="./login.php">
+                        <button
+                            class="btn cursor-pointer bg-gradient-to-b from-indigo-500 to-indigo-600 shadow-[0px_4px_32px_0_rgba(99,102,241,.70)] px-6 py-2 rounded-xl border-[1px] border-slate-500 text-white font-medium group">
+                            <div class="relative overflow-hidden">
+                                <p
+                                    class="group-hover:-translate-y-7 duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)]">
+                                    Hubungi Kami
+                                </p>
+                                <p
+                                    class="absolute top-7 left-0 group-hover:top-0 duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)]">
+                                    Hubungi Kami
+                                </p>
+                            </div>
+                        </button>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <footer class="pt-8 pb-8">
-        <a href="https://www.instagram.com/rfin.cr7/" target="_blank">
-            <p class="font-bold text-center">created by @BANGFIN</p>
-        </a>
+        <h2 class="font-bold text-center text-2xl mb-3">Sabilul <span>Khoir</span></h2>
+        <p class="text-center">Organisasi Pemuda Dusun Mertelu Desa Kalisabuk</p>
+        <div class="flex items-center justify-content-center py-4 pl-12">
+            <!-- instagram -->
+            <a href="https://www.instagram.com/nurrifin07/" target="_blank"
+                class="w-9 h-9 rounded-full bg-gray-100 flex justify-center items-center hover:border-yellow-400 hover:bg-red-600 hover:text-white">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <!-- youtube -->
+            <a href="https://www.youtube.com/channel/UCL01kjrxcNWmVRbSfN98dvA" target="_blank"
+                class="mx-4 w-9 h-9 rounded-full border bg-gray-100 flex justify-center items-center hover:border hover:bg-red-600 hover:text-white">
+                <i class="fa-brands fa-facebook"></i>
+            </a>
+            <!-- tiktok -->
+            <a href="https://www.tiktok.com/@nrifin7" target="_blank"
+                class="w-9 h-9 rounded-full border bg-gray-100 flex justify-center items-center hover:border hover:bg-red-600 hover:text-white">
+                <i class="fa-solid fa-envelope"></i>
+            </a>
+        </div>
     </footer>
 
     <script>

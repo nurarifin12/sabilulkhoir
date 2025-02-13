@@ -2,6 +2,7 @@
 session_start();
 include('./db_conn.php');
 
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = htmlspecialchars(trim($_POST['username']));
     $password = trim($_POST['password']);
@@ -45,6 +46,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- icon web -->
     <link rel="icon" href="./img/logo.jpg" type="image/jpg">
     <link rel="stylesheet" href="./css/login.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f4f4f4;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .form-container {
+            display: inline-block;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 100px;
+            animation: scaleUp 0.5s ease-out;
+        }
+
+        @keyframes scaleUp {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 
 <body>
