@@ -9,65 +9,25 @@ include('./db_conn.php');
 
 include('./component/header.php');
 
-// ambil data berdasarkan ID
-$id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
-$query = "SELECT * FROM beranda WHERE id = ?";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("i", $id);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows == 0) {
-    echo "Data tidak ditemukan";
-    exit;
-}
-
-$row = $result->fetch_assoc();
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $judul = trim($_POST['judul']);
-    $deskripsi = trim($_POST['deskripsi']);
-    $gambar_lama = $row['gambar'];
-    $gambar = $_FILES['gambar']['name'];
-    $gambar_tmp = $_FILES['gambar']['tmp_name'];
-    $uplod_dir = 'img/';
+    $sejarah = trim($_POST['sejarah']);
+    $visi = trim($_POST['visi']);
+    $misi = trim($_POST['misi']);
 
-    // jika ada file gambar baru yang di uplod gunakan gambar baru
-    if (!empty($gambar)) {
-        $target_file = $uplod_dir . basename($gambar);
+    if (!empty($sejarah) && !empty($visi) && !empty($misi)) {
 
-        // pastikan direktori img ada
-        if (!file_exists($uplod_dir)) {
-            mkdir($uplod_dir, 0777, true);
-        }
-
-        if (move_uploaded_file($gambar_tmp, $target_file)) {
-            $gambar_baru = $gambar;
-        } else {
-            $error = "GAGAL UPLOD GAMBAR";
-        }
-    } else {
-        $gambar_baru = $gambar_lama;
-    }
-
-    if (!empty($judul) && !empty($deskripsi)) {
-        $query = "UPDATE beranda SET judul = ?, deskripsi = ?, gambar = ? WHERE id = ?";
+        $query = "INSERT INTO about (sejarah, visi, misi) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($query);
+        $stmt->bind_param("sss", $sejarah, $visi, $misi);
 
-        if ($stmt) {
-            $stmt->bind_param("sssi", $judul, $deskripsi, $gambar_baru, $id);
-            if ($stmt->execute()) {
-                header('Location: beranda.php');
-                exit;
-            } else {
-                echo "gagal update data" . $stmt->error;
-            }
-            $stmt->close();
+        if ($stmt->execute()) {
+            header("Location: about.php");
+            exit;
         } else {
-            echo "Query gagal dipersiapkan: " . $conn->error;
+            $error = "Gagal menambah data";
         }
     } else {
-        $error = "Semua field harus di isi";
+        $error = "semua field haru di isi";
     }
 }
 
@@ -100,29 +60,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <!-- Page Heading -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-4">
-                        <h1 class="h3 mb-2 text-gray-800">Form Edit Beranda</h1>
+                        <h1 class="h3 mb-2 text-gray-800">Form Tambah About</h1>
                     </div>
                     <?php if (isset($error)) echo "<p style='color: red;'>$error</p>"; ?>
-                    <div class="card-body m-5">
+                    <div class="card-body">
                         <form action="" method="POST" enctype="multipart/form-data">
                             <div class="input-field">
-                                <label for="judul">Judul:</label>
-                                <input type="text" name="judul" id="judul" value="<?php echo $row['judul']; ?>"
-                                    required><br><br>
+                                <label for="sejarah">Sejarah:</label>
+                                <textarea name="sejarah" id="sejarah" required></textarea><br><br>
+                            </div>
+                            <div class="input-field">
+                                <label for="visi">Visi:</label>
+                                <textarea name="visi" id="visi" required></textarea><br><br>
                             </div>
 
                             <div class="input-field">
-                                <label for="deskripsi">Deskripsi:</label>
-                                <textarea name="deskripsi" id="deskripsi"
-                                    required><?php echo $row['deskripsi']; ?></textarea><br><br>
+                                <label for="misi">Misi:</label>
+                                <textarea name="misi" id="misi" required></textarea><br><br>
                             </div>
 
-                            <label for="gambar">Gambar:</label>
-                            <input type="file" name="gambar" id="gambar"><br><br>
-                            <img src="img/<?php echo $row['gambar']; ?>" width="150" alt="Gambar Beranda"><br><br>
-
-                            <button type="submit" class="btn bg-primary text-white">Update Data</button>
-                            <a href="beranda.php" class="btn bg-danger text-white">Kembali</a>
+                            <button type="submit" class="btn bg-primary text-white">Tambah Data</button>
+                            <a href="about.php" class="btn bg-danger text-white">Kembali</a>
                         </form>
                     </div>
                 </div>

@@ -160,13 +160,30 @@ $result = $conn->query($query);
     <section id="About" class="pt-32 pb-32">
         <div class="container">
             <h3 class="pl-12 font-bold text-white text-4xl mb-6 text-center">Tentang Kami</h3>
+            <h4 class="pl-12 font-bold text-black text-2xl mb-2">Sejarah</h4>
+            <p class="pl-12 text-base font-normal text-black mb-2" style="text-align: justify;">
+                Pemuda merupakan aset berharga bagi kemajuan suatu daerah. Mereka memiliki energi, kreativitas, dan
+                semangat yang tinggi untuk membawa perubahan positif dalam masyarakat. Namun, sering kali pemuda
+                dihadapkan pada tantangan seperti kurangnya wadah untuk menyalurkan potensi, minimnya kegiatan yang
+                membangun, serta terbatasnya ruang untuk berkontribusi dalam kehidupan sosial dan keagamaan.
+
+                Dusun Mertelu, Desa Kalisabuk, memiliki banyak pemuda dengan beragam potensi yang belum terorganisir
+                dengan baik. Melihat kebutuhan akan sebuah wadah yang dapat menjadi tempat berkumpul, berdiskusi, serta
+                berkontribusi dalam pembangunan masyarakat, maka dibentuklah Organisasi Pemuda Sabilul Khoir.
+
+                Sabilul Khoir, yang berarti "Jalan Kebaikan", diharapkan menjadi sarana bagi para pemuda untuk berperan
+                aktif dalam kegiatan sosial, keagamaan, serta pengembangan diri. Organisasi ini bertujuan untuk
+                menciptakan pemuda yang berakhlak, berdaya saing, serta memiliki kepedulian terhadap lingkungan sekitar.
+                Dengan adanya organisasi ini, diharapkan lahir berbagai program dan kegiatan yang mampu meningkatkan
+                kualitas pemuda dan memberikan manfaat bagi masyarakat Dusun Mertelu secara keseluruhan.
+            </p>
             <h4 class="pl-12 font-bold text-black text-2xl mb-2">Visi</h4>
-            <p class="pl-12 text-base font-semibold text-black">Mewujudkan masyarakat Dusun Mertelu yang berakhlak
+            <p class="pl-12 text-base font-normal text-black">Mewujudkan masyarakat Dusun Mertelu yang berakhlak
                 mulia, harmonis, dan mandiri melalui nilai-nilai kebersamaan, kepedulian, dan pengabdian.
             </p>
             <h4 class="pl-12 font-bold text-black text-2xl mb-2 mt-3">Misi</h4>
             <ol class="pl-8 list-group list-group-numbered">
-                <li class="pl-8 text-lowercase">Memperkuat ukhuwah dan gotong royong di antara warga untuk menciptakan
+                <li class="pl-8">Memperkuat ukhuwah dan gotong royong di antara warga untuk menciptakan
                     lingkungan yang
                     harmonis dan sejahtera.
                 </li>
