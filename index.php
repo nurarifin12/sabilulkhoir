@@ -23,6 +23,9 @@ if ($resultAbout->num_rows > 0) {
 // Ambil data About dari database
 $queryKegiatan = "SELECT * FROM kegiatan";
 $resultKegiatan = $conn->query($queryKegiatan);
+
+$queryGaleri = "SELECT * FROM galeri";
+$resultGaleri = mysqli_query($conn, $query);
 ?>
 
 <!Doctype html>
@@ -226,207 +229,54 @@ $resultKegiatan = $conn->query($queryKegiatan);
     </section>
 
 
-
+    <!-- galeri -->
     <section id="Galeri-Media" class="pt-32 pb-32">
         <div class="container">
             <h3 class="text-4xl font-bold text-center mb-5">Galeri</h3>
             <div class="row row-cols-1 row-cols-md-3 g-4">
-                <div class="col">
-                    <div class="card3">
-                        <div class="card-details">
-                            <img src="./img/karnaval.jpg" alt="">
-                        </div>
-                        <button class="card-button" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">Selengkapnya</button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Karnaval</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <img src="./img/karnaval.jpg" alt="">
-                                        <p>Karnaval hari kemerdekaan Lorem ipsum dolor sit amet consectetur adipisicing
-                                            elit. In commodi saepe autem eligendi ea praesentium modi facere rerum
-                                            debitis eum.</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close
-                                            Window</button>
+                <?php
+
+                if (mysqli_num_rows($resultGaleri) > 0) {
+                    while ($galeri = mysqli_fetch_assoc($resultGaleri)) {
+                        echo '
+                    <div class="col">
+                        <div class="card3">
+                            <div class="card-details">
+                                <img src="img/' . $galeri['gambar'] . '" alt="' . htmlspecialchars($galeri['judul']) . '">
+                            </div>
+                            <button class="card-button" data-bs-toggle="modal" data-bs-target="#modal' . $galeri['id'] . '">Selengkapnya</button>
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="modal' . $galeri['id'] . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">' . htmlspecialchars($galeri['judul']) . '</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <img src="img/' . $galeri['gambar'] . '" alt="' . htmlspecialchars($galeri['judul']) . '">
+                                            <p>' . nl2br(htmlspecialchars($galeri['deskripsi'])) . '</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close Window</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card3">
-                        <div class="card-details">
-                            <img src="profil.JPG" alt="">
-                        </div>
-                        <button class="card-button" data-bs-toggle="modal"
-                            data-bs-target="#sholawatModal">Selengkapnya</button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="sholawatModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Sholawat HARLAH Sabilul Khoir
-                                        </h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <img src="profil.jpg" alt="">
-                                        <p>Sholawat dalam rangka HARLAH Sabilul Khoir Lorem ipsum dolor sit amet
-                                            consectetur adipisicing elit. In commodi saepe autem eligendi ea praesentium
-                                            modi facere rerum debitis eum.</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close
-                                            Window</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card3">
-                        <div class="card-details">
-                            <img src="./img/ngaji2.jpeg" alt="">
-                        </div>
-                        <button class="card-button" data-bs-toggle="modal"
-                            data-bs-target="#ngajiModal">Selengkapnya</button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="ngajiModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Ngaji Rutinan</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <img src="./img/ngaji2.jpeg" alt="">
-                                        <p>Ngaji rutinan Lorem ipsum dolor sit amet consectetur adipisicing elit. In
-                                            commodi saepe autem eligendi ea praesentium modi facere rerum debitis eum.
-                                        </p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close
-                                            Window</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card3">
-                        <div class="card-details">
-                            <img src="./img/ngaji2.jpeg" alt="">
-                        </div>
-                        <button class="card-button" data-bs-toggle="modal"
-                            data-bs-target="#ngajiModal">Selengkapnya</button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="ngajiModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Ngaji Rutinan</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <img src="./img/ngaji2.jpeg" alt="">
-                                        <p>Ngaji rutinan Lorem ipsum dolor sit amet consectetur adipisicing elit. In
-                                            commodi saepe autem eligendi ea praesentium modi facere rerum debitis eum.
-                                        </p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close
-                                            Window</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card3">
-                        <div class="card-details">
-                            <img src="./img/ngaji2.jpeg" alt="">
-                        </div>
-                        <button class="card-button" data-bs-toggle="modal"
-                            data-bs-target="#ngajiModal">Selengkapnya</button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="ngajiModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Ngaji Rutinan</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <img src="./img/ngaji2.jpeg" alt="">
-                                        <p>Ngaji rutinan Lorem ipsum dolor sit amet consectetur adipisicing elit. In
-                                            commodi saepe autem eligendi ea praesentium modi facere rerum debitis eum.
-                                        </p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close
-                                            Window</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card3">
-                        <div class="card-details">
-                            <img src="./img/ngaji2.jpeg" alt="">
-                        </div>
-                        <button class="card-button" data-bs-toggle="modal"
-                            data-bs-target="#ngajiModal">Selengkapnya</button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="ngajiModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Ngaji Rutinan</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <img src="./img/ngaji2.jpeg" alt="">
-                                        <p>Ngaji rutinan Lorem ipsum dolor sit amet consectetur adipisicing elit. In
-                                            commodi saepe autem eligendi ea praesentium modi facere rerum debitis eum.
-                                        </p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close
-                                            Window</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    </div>';
+                    }
+                } else {
+                    echo "<p class='text-center'>Belum ada data galeri.</p>";
+                }
+
+                mysqli_close($conn);
+                ?>
             </div>
         </div>
     </section>
+
 
 
     <section id="Contact" class=" pt-32 pb-32">
