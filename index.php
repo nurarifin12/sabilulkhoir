@@ -3,6 +3,26 @@ include('db_conn.php');
 
 $query = "SELECT * FROM beranda";
 $result = $conn->query($query);
+
+// Ambil data About dari database
+$queryAbout = "SELECT * FROM about LIMIT 1";
+$resultAbout = $conn->query($queryAbout);
+
+// Cek apakah data tersedia
+if ($resultAbout->num_rows > 0) {
+    $row = $resultAbout->fetch_assoc();
+    $sejarah = $row['sejarah'];
+    $visi = $row['visi'];
+    $misi = explode("\n", $row['misi']); // Pecah misi menjadi array berdasarkan baris baru
+} else {
+    $sejarah = "Data belum tersedia.";
+    $visi = "Data belum tersedia.";
+    $misi = [];
+}
+
+// Ambil data About dari database
+$queryKegiatan = "SELECT * FROM kegiatan";
+$resultKegiatan = $conn->query($queryKegiatan);
 ?>
 
 <!Doctype html>
@@ -160,43 +180,22 @@ $result = $conn->query($query);
     <section id="About" class="pt-32 pb-32">
         <div class="container">
             <h3 class="pl-12 font-bold text-white text-4xl mb-6 text-center">Tentang Kami</h3>
+
             <h4 class="pl-12 font-bold text-black text-2xl mb-2">Sejarah</h4>
             <p class="pl-12 text-base font-normal text-black mb-2" style="text-align: justify;">
-                Pemuda merupakan aset berharga bagi kemajuan suatu daerah. Mereka memiliki energi, kreativitas, dan
-                semangat yang tinggi untuk membawa perubahan positif dalam masyarakat. Namun, sering kali pemuda
-                dihadapkan pada tantangan seperti kurangnya wadah untuk menyalurkan potensi, minimnya kegiatan yang
-                membangun, serta terbatasnya ruang untuk berkontribusi dalam kehidupan sosial dan keagamaan.
-
-                Dusun Mertelu, Desa Kalisabuk, memiliki banyak pemuda dengan beragam potensi yang belum terorganisir
-                dengan baik. Melihat kebutuhan akan sebuah wadah yang dapat menjadi tempat berkumpul, berdiskusi, serta
-                berkontribusi dalam pembangunan masyarakat, maka dibentuklah Organisasi Pemuda Sabilul Khoir.
-
-                Sabilul Khoir, yang berarti "Jalan Kebaikan", diharapkan menjadi sarana bagi para pemuda untuk berperan
-                aktif dalam kegiatan sosial, keagamaan, serta pengembangan diri. Organisasi ini bertujuan untuk
-                menciptakan pemuda yang berakhlak, berdaya saing, serta memiliki kepedulian terhadap lingkungan sekitar.
-                Dengan adanya organisasi ini, diharapkan lahir berbagai program dan kegiatan yang mampu meningkatkan
-                kualitas pemuda dan memberikan manfaat bagi masyarakat Dusun Mertelu secara keseluruhan.
+                <?= nl2br(htmlspecialchars($sejarah)); ?>
             </p>
+
             <h4 class="pl-12 font-bold text-black text-2xl mb-2">Visi</h4>
-            <p class="pl-12 text-base font-normal text-black">Mewujudkan masyarakat Dusun Mertelu yang berakhlak
-                mulia, harmonis, dan mandiri melalui nilai-nilai kebersamaan, kepedulian, dan pengabdian.
+            <p class="pl-12 text-base font-normal text-black">
+                <?= nl2br(htmlspecialchars($visi)); ?>
             </p>
+
             <h4 class="pl-12 font-bold text-black text-2xl mb-2 mt-3">Misi</h4>
             <ol class="pl-8 list-group list-group-numbered">
-                <li class="pl-8">Memperkuat ukhuwah dan gotong royong di antara warga untuk menciptakan
-                    lingkungan yang
-                    harmonis dan sejahtera.
-                </li>
-                <li class="pl-8">
-                    Mengembangkan kegiatan keagamaan dan sosial untuk meningkatkan kualitas spiritual dan kepedulian
-                    masyarakat.
-                </li>
-                <li class="pl-8">
-                    Mendorong pemberdayaan masyarakat melalui pelatihan dan program yang mendukung kemandirian ekonomi.
-                </li>
-                <li class="pl-8">
-                    Melestarikan budaya lokal dan nilai-nilai luhur sebagai identitas masyarakat Dusun Mertelu.
-                </li>
+                <?php foreach ($misi as $point) : ?>
+                    <li class="pl-8"><?= htmlspecialchars($point); ?></li>
+                <?php endforeach; ?>
             </ol>
         </div>
     </section>
@@ -205,79 +204,27 @@ $result = $conn->query($query);
         <div class="container">
             <h3 class="text-4xl font-bold text-center mb-5">Program atau Kegiatan</h3>
             <div class="row row-cols-1 row-cols-md-3 g-4">
-                <div class="col">
-                    <div class="card h-100 shadow-lg">
-                        <span class="glass"></span>
-                        <img src="./img/bersih.jpeg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title font-bold">Kebersihan Lingkungan</h5>
-                            <p class="card-text text-white text-base">Gerakan Kebersihan Lingkungan adalah program rutin
-                                yang diselenggarakan oleh Shobilul Khoir untuk menciptakan lingkungan dusun yang bersih,
-                                sehat, dan nyaman. Kegiatan ini melibatkan seluruh warga Dusun Mertelu, Desa Kalisabuk,
-                                dalam semangat gotong royong untuk menjaga kelestarian dan kebersihan lingkungan. Selain
-                                membersihkan lingkungan, program ini juga berfokus pada penghijauan melalui penanaman
-                                pohon di area yang gersang.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-white"><a href="https://simpati.unugha.ac.id" target="_blank">Learn
-                                    More</a></small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 shadow-lg">
-                        <img src="./img/ngaji2.jpeg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title font-bold">Pengajian Rutin</h5>
-                            <p class="card-text text-white text-base">Pengajian Rutin Shobilul Khoir adalah program
-                                mingguan/bulanan yang diselenggarakan untuk memperkuat keimanan dan memperdalam
-                                pemahaman agama Islam di tengah masyarakat Dusun Mertelu, Desa Kalisabuk. Kegiatan ini
-                                terbuka untuk semua kalangan, baik anak-anak, remaja, hingga orang tua, sebagai sarana
-                                mempererat ukhuwah Islamiyah dan berbagi ilmu.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-white"><a href="https://simpati.unugha.ac.id" target="_blank">Learn
-                                    More</a></small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 shadow-lg">
-                        <img src="./img/haribesar.jpeg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title font-bold">Peringatan Hari Besar Islam</h5>
-                            <p class="card-text text-white text-base">Program Peringatan Hari Besar Islam merupakan
-                                kegiatan istimewa yang diadakan oleh Shobilul Khoir untuk memperingati momen-momen
-                                penting dalam sejarah Islam, seperti Maulid Nabi Muhammad SAW, Isra’ Mi’raj, Idul Fitri,
-                                dan Idul Adha. Kegiatan ini bertujuan untuk menghidupkan syiar Islam, menanamkan
-                                nilai-nilai keagamaan, dan mempererat hubungan antarwarga di Dusun Mertelu, Desa
-                                Kalisabuk.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-white"><a href="https://simpati.unugha.ac.id" target="_blank">Learn
-                                    More</a></small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 shadow-lg">
-                        <img src="./img/sosial.jpeg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title font-bold">Bakti Sosial</h5>
-                            <p class="card-text text-white text-base">Program Bakti Sosial Shobilul Khoir adalah wujud
-                                nyata kepedulian kepada masyarakat Dusun Mertelu, Desa Kalisabuk. Kegiatan ini bertujuan
-                                membantu meringankan beban warga yang membutuhkan, mempererat kebersamaan, dan membangun
-                                budaya gotong royong. Dengan semangat berbagi, program ini menjadi sarana untuk
-                                menciptakan masyarakat yang lebih harmonis dan sejahtera.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-white"><a href="https://simpati.unugha.ac.id" target="_blank">Learn
-                                    More</a></small>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                if (mysqli_num_rows($resultKegiatan) > 0) {
+                    while ($kegiatan = mysqli_fetch_assoc($resultKegiatan)) {
+                        echo '<div class="col">';
+                        echo '<div class="card h-100 shadow-lg">';
+                        echo '<img src="img/' . $kegiatan['gambar'] . '" class="card-img-top" alt="' . $kegiatan['judul'] . '">';
+                        echo '<div class="card-body">';
+                        echo '<h5 class="card-title font-bold">' . $kegiatan['judul'] . '</h5>';
+                        echo '<p class="card-text text-white text-base">' . $kegiatan['deskripsi'] . '</p>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo "<p class='text-center text-gray-600'>Tidak ada kegiatan yang tersedia</p>";
+                }
+                ?>
             </div>
+        </div>
     </section>
+
 
 
     <section id="Galeri-Media" class="pt-32 pb-32">
