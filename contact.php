@@ -5,6 +5,7 @@ if (!isset($_SESSION['users'])) {
     exit;
 }
 
+include('db_conn.php');
 include('./component/header.php');
 
 
@@ -35,11 +36,24 @@ include('./component/header.php');
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Contact</h1>
+                <h1 class="h3 mb-2 text-gray-800">Kontak</h1>
+                <?php
+                if (isset($_SESSION['success'])) {
+                    echo "<div class='alert alert-success'>" . $_SESSION['success'] . "</div>";
+                    unset($_SESSION['success']);
+                }
+
+                if (isset($_SESSION['error'])) {
+                    echo "<div class='alert alert-danger'>" . $_SESSION['error'] . "</div>";
+                    unset($_SESSION['error']);
+                }
+                ?>
+
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-4">
-                        <a href="" class="btn-primary p-2 rounded-sm text-decoration-none m-2">tambah data</a>
+                        <a href="tambah_kontak.php" class="btn-primary p-2 rounded-sm text-decoration-none m-2">tambah
+                            data</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -47,23 +61,43 @@ include('./component/header.php');
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Gambar</th>
-                                        <th>Judul</th>
-                                        <th>Deskripti</th>
-                                        <th>Action</th>
+                                        <th>Instagram</th>
+                                        <th>Alamat</th>
+                                        <th>Email</th>
+                                        <th>Facebook</th>
+                                        <th>No Telp</th>
+                                        <th>Acion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>
-                                            <button class="bg-success border-0 rounded-sm p-2 text-white">Edit</button>
-                                            <button class="bg-danger border-0 rounded-sm p-2 text-white">Hapus</button>
-                                        </td>
-                                    </tr>
+                                    <?php
+                                    $no = 1;
+                                    $query = "SELECT * FROM kontak";
+                                    $result = mysqli_query($conn, $query);
+
+
+                                    if (mysqli_num_rows($result) > 0) {
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo "<tr>";
+                                            echo "<td>" . $no++ . "</td>";
+                                            echo "<td>" . $row['media_sosial'] . "</td>";
+                                            echo "<td>" . $row['alamat'] . "</td>";
+                                            echo "<td>" . $row['email'] . "</td>";
+                                            echo "<td>" . $row['facebook'] . "</td>";
+                                            echo "<td>" . $row['nomor_telepon'] . "</td>";
+                                            echo "<td>
+                                                    <a href='edit_kontak.php?id=" . $row['id'] . "' class='btn bg-success text-white p-2'>Edit</a>
+                                                    <a href='hapus_kontak.php?id=" . $row['id'] . "' onclick='return confirm(\"Yakin ingin dihapus?\")'  class='btn bg-danger text-white p-2'>Hapus</a>
+                                                </td>";
+                                            echo "</tr>";
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='5' class='text-center'>Tidak ada data</td></tr>";
+                                    }
+
+                                    mysqli_close($conn);
+                                    ?>
+
                                 </tbody>
                             </table>
                         </div>

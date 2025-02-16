@@ -5,7 +5,12 @@ if (!isset($_SESSION['users'])) {
     exit;
 }
 
+include('./db_conn.php');
 include('./component/header.php');
+
+// Ambil data About dari database
+$query = "SELECT * FROM users";
+$result = $conn->query($query);
 
 
 ?>
@@ -36,7 +41,11 @@ include('./component/header.php');
 
             </div>
             <hr class="mx-4">
-            <h1 class="mx-4">Hallo Lukman</h1>
+
+            <?php
+            $row = $result->fetch_assoc();
+            ?>
+            <h1 class="mx-4">Hallo <?= htmlspecialchars($row['username']); ?></h1>
             <p class="mx-4">Selamat datang di web Sabilul Khoir</p>
 
         </div>

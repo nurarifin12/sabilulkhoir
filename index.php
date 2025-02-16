@@ -26,6 +26,9 @@ $resultKegiatan = $conn->query($queryKegiatan);
 
 $queryGaleri = "SELECT * FROM galeri";
 $resultGaleri = mysqli_query($conn, $query);
+
+$queryKontak = "SELECT * FROM kontak LIMIT 1"; // Ambil satu data kontak
+$resultKontak = mysqli_query($conn, $queryKontak);
 ?>
 
 <!Doctype html>
@@ -285,61 +288,99 @@ $resultGaleri = mysqli_query($conn, $query);
             <div class="flex flex-wrap">
                 <div class="px-4 lg:w-1/2">
                     <img src="./img/logo.jpg" class="img-fluid rounded pl-12 mix-blend-multiply" width="300px"
-                        height="300px" alt="rifin">
+                        height="300px" alt="logo">
                 </div>
                 <div class="w-full pl-10 right-0 lg:w-1/2">
                     <h3 class="font-bold text-red text-3xl mb-6 mt-6">Get In Touch</h3>
-                    <div class="d-flex text-danger mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="currentColor"
-                            class="bi bi-geo" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z" />
-                        </svg>
-                        <div>
-                            <h4 class="pl-4 mb-3 font-bold text-slate-600 text-2xl">Address</h4>
-                            <address class="pl-4 mb-0 text-secondary">Mertelu, Desa Kalisabuk</address>
+
+                    <?php
+
+                    if ($kontak = mysqli_fetch_assoc($resultKontak)) {
+                    ?>
+                        <div class="d-flex text-danger mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="currentColor"
+                                class="bi bi-geo" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z" />
+                            </svg>
+                            <div>
+                                <h4 class="pl-4 mb-3 font-bold text-slate-600 text-2xl">Address</h4>
+                                <address class="pl-4 mb-0 text-secondary"><?= htmlspecialchars($kontak['alamat']); ?>
+                                </address>
+                            </div>
                         </div>
-                    </div>
-                    <div class="d-flex text-danger mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 448 512">
-                            <!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-                            <path fill="#f21c1c"
-                                d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" />
-                        </svg>
-                        <div>
-                            <h4 class="pl-4 mb-3 font-bold text-slate-600 text-2xl">Instagram</h4>
-                            <a class="text-slate-600"
-                                href="https://www.instagram.com/sabilulkhoir_mertelu?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">sabilulkhoir_mertelu</a>
+
+                        <div class="d-flex text-danger mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="currentColor"
+                                class="bi bi-envelope-at" viewBox="0 0 16 16">
+                                <path
+                                    d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z" />
+                                <path
+                                    d="M14.247 14.269c1.01 0 1.587-.857 1.587-2.025v-.21C15.834 10.43 14.64 9 12.52 9h-.035C10.42 9 9 10.36 9 12.432v.214C9 14.82 10.438 16 12.358 16h.044c.594 0 1.018-.074 1.237-.175v-.73c-.245.11-.673.18-1.18.18h-.044c-1.334 0-2.571-.788-2.571-2.655v-.157c0-1.657 1.058-2.724 2.64-2.724h.04c1.535 0 2.484 1.05 2.484 2.326v.118c0 .975-.324 1.39-.639 1.39-.232 0-.41-.148-.41-.42v-2.19h-.906v.569h-.03c-.084-.298-.368-.63-.954-.63-.778 0-1.259.555-1.259 1.4v.528c0 .892.49 1.434 1.26 1.434.471 0 .896-.227 1.014-.643h.043c.118.42.617.648 1.12.648Zm-2.453-1.588v-.227c0-.546.227-.791.573-.791.297 0 .572.192.572.708v.367c0 .573-.253.744-.564.744-.354 0-.581-.215-.581-.8Z" />
+                            </svg>
+                            <div>
+                                <h4 class="pl-4 mb-3 font-bold text-slate-600 text-2xl">Email</h4>
+                                <p class="pl-4 mb-0 text-secondary"><?= htmlspecialchars($kontak['email']); ?></p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="d-flex text-danger mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" fill="currentColor"
-                            class="bi bi-envelope-at" viewBox="0 0 16 16">
-                            <path
-                                d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z" />
-                            <path
-                                d="M14.247 14.269c1.01 0 1.587-.857 1.587-2.025v-.21C15.834 10.43 14.64 9 12.52 9h-.035C10.42 9 9 10.36 9 12.432v.214C9 14.82 10.438 16 12.358 16h.044c.594 0 1.018-.074 1.237-.175v-.73c-.245.11-.673.18-1.18.18h-.044c-1.334 0-2.571-.788-2.571-2.655v-.157c0-1.657 1.058-2.724 2.64-2.724h.04c1.535 0 2.484 1.05 2.484 2.326v.118c0 .975-.324 1.39-.639 1.39-.232 0-.41-.148-.41-.42v-2.19h-.906v.569h-.03c-.084-.298-.368-.63-.954-.63-.778 0-1.259.555-1.259 1.4v.528c0 .892.49 1.434 1.26 1.434.471 0 .896-.227 1.014-.643h.043c.118.42.617.648 1.12.648Zm-2.453-1.588v-.227c0-.546.227-.791.573-.791.297 0 .572.192.572.708v.367c0 .573-.253.744-.564.744-.354 0-.581-.215-.581-.8Z" />
-                        </svg>
-                        <div>
-                            <h4 class="pl-4 mb-3 font-bold text-slate-600 text-2xl">E-mail</h4>
-                            <address class="pl-4 mb-0 text-secondary">sabilulkhoir@gmail.com</address>
-                        </div>
-                    </div>
-                    <a href="./login.php">
-                        <button
-                            class="btn cursor-pointer bg-gradient-to-b from-indigo-500 to-indigo-600 shadow-[0px_4px_32px_0_rgba(99,102,241,.70)] px-6 py-2 rounded-xl border-[1px] border-slate-500 text-white font-medium group">
-                            <div class="relative overflow-hidden">
-                                <p
-                                    class="group-hover:-translate-y-7 duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)]">
-                                    Hubungi Kami
-                                </p>
-                                <p
-                                    class="absolute top-7 left-0 group-hover:top-0 duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)]">
-                                    Hubungi Kami
+
+                        <div class="d-flex text-danger mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 512 512">
+                                <!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                                <path fill="#f22121"
+                                    d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z" />
+                            </svg>
+                            <div>
+                                <h4 class="pl-4 mb-3 font-bold text-slate-600 text-2xl">Facebook</h4>
+                                <p class="pl-4 mb-0 text-secondary">
+                                    <a href="<?= htmlspecialchars($kontak['facebook']); ?>" target="_blank"
+                                        class="text-slate-600">
+                                        <?= htmlspecialchars($kontak['facebook']); ?>
+                                    </a>
                                 </p>
                             </div>
-                        </button>
-                    </a>
+                        </div>
+
+                        <div class="d-flex text-danger mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 448 512">
+                                <!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                                <path fill="#f21c1c"
+                                    d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" />
+                            </svg>
+                            <div>
+                                <h4 class="pl-4 mb-3 font-bold text-slate-600 text-2xl">Instagram</h4>
+                                <p class="pl-4 mb-0 text-secondary">
+                                    <a href="<?= htmlspecialchars($kontak['media_sosial']); ?>" target="_blank"
+                                        class="text-slate-600">
+                                        <?= htmlspecialchars($kontak['media_sosial']); ?>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <a href="https://api.whatsapp.com/send?phone=<?= htmlspecialchars($kontak['nomor_telepon']); ?>&text=Halo%20saya%20ingin%20bertanya%20mengenai%20layanan%20Anda"
+                            target="_blank">
+                            <button
+                                class="btn cursor-pointer bg-gradient-to-b from-indigo-500 to-indigo-600 shadow-[0px_4px_32px_0_rgba(99,102,241,.70)] px-6 py-2 rounded-xl border-[1px] border-slate-500 text-white font-medium group">
+                                <div class="relative overflow-hidden">
+                                    <p
+                                        class="group-hover:-translate-y-7 duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)]">
+                                        Hubungi Kami
+                                    </p>
+                                    <p
+                                        class="absolute top-7 left-0 group-hover:top-0 duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)]">
+                                        Hubungi Kami
+                                    </p>
+                                </div>
+                            </button>
+                        </a>
+
+                    <?php
+                    } else {
+                        echo "<p class='text-gray-600'>Data kontak belum tersedia.</p>";
+                    }
+                    ?>
+
                 </div>
             </div>
         </div>
@@ -350,17 +391,17 @@ $resultGaleri = mysqli_query($conn, $query);
         <p class="text-center">Organisasi Pemuda Dusun Mertelu Desa Kalisabuk</p>
         <div class="flex items-center justify-content-center py-4 pl-12">
             <!-- instagram -->
-            <a href="https://www.instagram.com/nurrifin07/" target="_blank"
+            <a href="https://www.instagram.com/sabilulkhoir_mertelu/" target="_blank"
                 class="w-9 h-9 rounded-full bg-gray-100 flex justify-center items-center hover:border-yellow-400 hover:bg-red-600 hover:text-white">
                 <i class="fa-brands fa-instagram"></i>
             </a>
             <!-- youtube -->
-            <a href="https://www.youtube.com/channel/UCL01kjrxcNWmVRbSfN98dvA" target="_blank"
+            <a href="https://www.facebook.com/sabilulkhoir.mertelu" target="_blank"
                 class="mx-4 w-9 h-9 rounded-full border bg-gray-100 flex justify-center items-center hover:border hover:bg-red-600 hover:text-white">
                 <i class="fa-brands fa-facebook"></i>
             </a>
             <!-- tiktok -->
-            <a href="https://www.tiktok.com/@nrifin7" target="_blank"
+            <a href="sabilulkhoir@gmail.com" target="_blank"
                 class="w-9 h-9 rounded-full border bg-gray-100 flex justify-center items-center hover:border hover:bg-red-600 hover:text-white">
                 <i class="fa-solid fa-envelope"></i>
             </a>
