@@ -2,13 +2,14 @@
 
 # Nama Proyek
 
-Deskripsi singkat tentang project ini.
+Sebuah web profile organisasi pemuda sabilul khoir di desa kalisabuk khususnya dusun mertelu.
 
 ## Fitur
 
-- Fitur login
+- Fitur login dan logout
 - Fitur manajemen konten oleh admin
 - Fitur crud konten oleh admin
+- Bacaan yasin & tahlil
 
 ## Cara Instalasi
 
