@@ -215,7 +215,9 @@ $resultKontak = mysqli_query($conn, $queryKontak);
                     while ($kegiatan = mysqli_fetch_assoc($resultKegiatan)) {
                         echo '<div class="col">';
                         echo '<div class="card h-100 shadow-lg">';
-                        echo '<img src="img/' . $kegiatan['gambar'] . '" class="card-img-top" alt="' . $kegiatan['judul'] . '">';
+                        echo '<a href="yasin.php" class="p-2">
+                        <img src="img/' . $kegiatan['gambar'] . '" class="card-img-top" alt="' . $kegiatan['judul'] . '">
+                        </a>';
                         echo '<div class="card-body">';
                         echo '<h5 class="card-title font-bold">' . $kegiatan['judul'] . '</h5>';
                         echo '<p class="card-text text-white text-base">' . $kegiatan['deskripsi'] . '</p>';
@@ -234,6 +236,7 @@ $resultKontak = mysqli_query($conn, $queryKontak);
 
     <!-- galeri -->
     <section id="Galeri-Media" class="pt-32 pb-32">
+        <a class="btn btn-primary" href="yasin.php" role="button">Baca Yasin & Tahlil</a>
         <div class="container">
             <h3 class="text-4xl font-bold text-center mb-5">Galeri</h3>
             <div class="row row-cols-1 row-cols-md-3 g-4">

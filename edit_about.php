@@ -88,8 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 <label for="misi">Misi:</label>
                                 <textarea name="misi" id="misi" required><?= $row['misi']; ?></textarea><br><br>
                             </div>
-
-
                             <button type="submit" class="btn bg-primary text-white">Update Data</button>
                             <a href="about.php" class="btn bg-danger text-white">Kembali</a>
                         </form>
